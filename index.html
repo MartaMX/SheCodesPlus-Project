@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pro Week 2 - Weather App</title>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+
+		<link href="src/styles.css" rel="stylesheet" type="text/css" />
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-8 city">
+						<div class="card" >
+								<div class="card-body">
+									<h5 class="card-title" id="shown-city">Mexico City       							<img src="data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjQ3MnB0IiB2aWV3Qm94PSIwIC0xNiA0NzIuMTIyOTQgNDcyIiB3aWR0aD0iNDcycHQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI2ZkZDAyMCI+PHBhdGggZD0ibTQxNi4xMjEwOTQgMTYwLjA2MjVjMCA1Ny40Mzc1LTQ2LjU1ODU5NCAxMDQtMTA0IDEwNC01Ny40Mzc1IDAtMTA0LTQ2LjU2MjUtMTA0LTEwNHM0Ni41NjI1LTEwNCAxMDQtMTA0YzU3LjQ0MTQwNiAwIDEwNCA0Ni41NjI1IDEwNCAxMDR6bTAgMCIvPjxwYXRoIGQ9Im00NjQuMTIxMDk0IDE2OC4wNjI1aC0xNmMtNC40MTc5NjkgMC04LTMuNTgyMDMxLTgtOHMzLjU4MjAzMS04IDgtOGgxNmM0LjQyMTg3NSAwIDggMy41ODIwMzEgOCA4cy0zLjU3ODEyNSA4LTggOHptMCAwIi8+PHBhdGggZD0ibTI5Ni4xMjEwOTQgMzIuMDYyNWMtNC40MTc5NjkgMC04LTMuNTgyMDMxLTgtOHYtMTZjMC00LjQxNzk2OSAzLjU4MjAzMS04IDgtOCA0LjQyMTg3NSAwIDggMy41ODIwMzEgOCA4djE2YzAgNC40MTc5NjktMy41NzgxMjUgOC04IDh6bTAgMCIvPjxwYXRoIGQ9Im00MDguMTIxMDk0IDcyLjA2MjVjLTMuMjM0Mzc1IDAtNi4xNDg0MzgtMS45NDkyMTktNy4zODY3MTktNC45NDE0MDYtMS4yMzgyODEtMi45ODgyODItLjU1NDY4Ny02LjQyNTc4MiAxLjczNDM3NS04LjcxNDg0NGwxNi0xNmMyLjAwNzgxMi0yLjA4MjAzMSA0Ljk4MDQ2OS0yLjkxNDA2MiA3Ljc3NzM0NC0yLjE4MzU5NCAyLjc5Njg3NS43MzQzNzUgNC45ODA0NjggMi45MTc5NjkgNS43MTQ4NDQgNS43MTQ4NDQuNzMwNDY4IDIuNzk2ODc1LS4xMDE1NjMgNS43Njk1MzEtMi4xODM1OTQgNy43ODEyNWwtMTYgMTZjLTEuNSAxLjUtMy41MzEyNSAyLjM0Mzc1LTUuNjU2MjUgMi4zNDM3NXptMCAwIi8+PC9nPjxwYXRoIGQ9Im0zNjMuMTU2MjUgMzYwLjA2MjVjMzAuMTY3OTY5LjcyMjY1NiA1OC4zNTkzNzUtMTQuOTU3MDMxIDczLjY2MDE1Ni00MC45Njg3NSAxNS4yOTY4NzUtMjYuMDE1NjI1IDE1LjI5Njg3NS01OC4yNzM0MzggMC04NC4yODkwNjItMTUuMzAwNzgxLTI2LjAxMTcxOS00My40OTIxODctNDEuNjkxNDA3LTczLjY2MDE1Ni00MC45Njg3NS01LjY0MDYyNS4wMDM5MDYtMTEuMjY5NTMxLjU1NDY4Ny0xNi44MDA3ODEgMS42NDg0MzctNi45MjU3ODEtMzIuMDIzNDM3LTM1LjM3NS01NC43ODkwNjMtNjguMTM2NzE5LTU0LjUzNTE1Ni0xMC4wMTU2MjUuMDAzOTA2LTE5LjkxNzk2OSAyLjE0NDUzMS0yOS4wMzkwNjIgNi4yODEyNS0xNi4wNjY0MDctNDEuMjg5MDYzLTU5LjA0Mjk2OS02NS41LTEwMi42Nzk2ODgtNTcuODQzNzVzLTc1LjgwNDY4OCA0NS4wNDY4NzUtNzYuODU1NDY5IDg5LjMzOTg0M2MuMDE5NTMxIDEwLjM1MTU2MyAxLjg1NTQ2OSAyMC42MTcxODggNS40MjE4NzUgMzAuMzM1OTM4LTI3LjE0NDUzMS4xNjAxNTYtNTIuMTEzMjgxIDE0Ljg3NS02NS40MDIzNDQgMzguNTQ2ODc1LTEzLjI4NTE1NiAyMy42NzE4NzUtMTIuODQ3NjU2IDUyLjY1MjM0NCAxLjE1NjI1IDc1LjkxMDE1NiAxNCAyMy4yNTM5MDcgMzkuNDA2MjUgMzcuMjA3MDMxIDY2LjU0Mjk2OSAzNi41NDI5NjkiIGZpbGw9IiNhM2Q0ZjciLz48cGF0aCBkPSJtMzI4LjEyMTA5NCAzOTIuMDYyNWMwIDE3LjY3MTg3NS0xNC4zMjQyMTkgMzItMzIgMzItMTcuNjcxODc1IDAtMzItMTQuMzI4MTI1LTMyLTMyIDAtMjQgMzItODAgMzItODBzMzIgNTYgMzIgODB6bTAgMCIgZmlsbD0iIzYwYTJkNyIvPjxwYXRoIGQ9Im0yNDguMTIxMDk0IDMxMi4wNjI1YzAgMTcuNjcxODc1LTE0LjMyNDIxOSAzMi0zMiAzMi0xNy42NzE4NzUgMC0zMi0xNC4zMjgxMjUtMzItMzIgMC0yNCAzMi04MCAzMi04MHMzMiA1NiAzMiA4MHptMCAwIiBmaWxsPSIjNjBhMmQ3Ii8+PHBhdGggZD0ibTE3Ni4xMjEwOTQgNDA4LjA2MjVjMCAxNy42NzE4NzUtMTQuMzI0MjE5IDMyLTMyIDMyLTE3LjY3MTg3NSAwLTMyLTE0LjMyODEyNS0zMi0zMiAwLTI0IDMyLTgwIDMyLTgwczMyIDU2IDMyIDgwem0wIDAiIGZpbGw9IiM2MGEyZDciLz48L3N2Zz4=" width="80"/>
+									</h5>
+									<p class="card-text"></p>
+								</div>
+							</div>
+							<form class="row gy-2 gx-3 align-items-center">
+								<div class="col-auto">
+									<label class="visually-hidden" for="autoSizingInput">Name</label>
+									<input type="text" class="form-control" id="autoSizingInput" placeholder="Search for a city">
+								</div>
+								
+								<div class="col-auto">
+									<button type="submit" id="submit-button" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
+
+								
+        </div>
+
+        <div class="col-4 temperature">
+					
+					<span class="temp-number" id="temperature-number">16</span>
+					<span class="degree" id="temperature-degree">°C</span>
+				</br>
+				<span id="currentDay">Tuesday 12:39 pm</span>
+
+					<div class="form-check form-switch" width="20%">
+							<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" >
+							<label class="form-check-label" id="switch-label" for="flexSwitchCheckDefault">°F</label>
+						</div>
+					
+				</div>
+
+			</div>
+		</div>
+		<script src="src/index.js"></script>
+  </body>
+</html>

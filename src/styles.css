@@ -1,0 +1,67 @@
+body {
+  font-family: sans-serif;
+}
+.container {
+  position: relative;
+  margin-top: 20px;
+}
+h5 {
+  font-size: 35pt;
+}
+
+.degree {
+  font-size: 25pt;
+  position: relative;
+  top: -15pt;
+}
+.card {
+  margin: 5px;
+}
+.form-select {
+  margin: 5px;
+}
+.weather-icon {
+  display: block;
+  margin: 0 auto;
+}
+.city {
+  background-color: rgba(250, 250, 250, 0.3);
+  border-radius: 10px;
+}
+
+.temperature {
+  background-color: rgba(225, 235, 250, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+
+  text-align: center;
+}
+
+.temp-number {
+  font-size: 45pt;
+}
+
+.form-switch,
+.form-check,
+.form-check-input {
+  text-align: left;
+}
+
+.forecast {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.days {
+  font-weight: bold;
+  color: rgb(81, 105, 141);
+  font-size: 12pt;
+}
+
+.low {
+  color: rgb(87, 130, 224);
+}
+
+.high {
+  color: rgb(192, 136, 64);
+}
